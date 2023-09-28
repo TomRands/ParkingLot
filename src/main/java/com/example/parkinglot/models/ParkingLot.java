@@ -1,8 +1,6 @@
 package com.example.parkinglot.models;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.Period;
 
 public class ParkingLot {
 
