@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import java.time.LocalDateTime;
 
 public class ParkingLotAppView {
-
     Stage stage;
     private ParkingLotAppController controller;
     private TextField txtFieldTimeIn, txtFieldTimeOut;
@@ -72,5 +71,9 @@ public class ParkingLotAppView {
 
     public void displayFee(long fee) {
         resultLbl.setText("Your total ticket fee is: " + fee);
+    }
+
+    public int getParkingLotNumber() {
+        return 0;
     }
 }

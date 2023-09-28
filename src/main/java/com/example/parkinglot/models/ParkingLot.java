@@ -2,7 +2,7 @@ package com.example.parkinglot.models;
 
 import java.time.Duration;
 
-public class ParkingLot {
+public class ParkingLot implements IParkingLot{
 
     private final int HOURLY_RATE = 2;
     private final int MAXIMUM_DAILY_RATE = 15;
