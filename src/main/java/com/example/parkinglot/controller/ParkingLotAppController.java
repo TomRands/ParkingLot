@@ -6,6 +6,8 @@ import com.example.parkinglot.models.Ticket;
 import com.example.parkinglot.view.ParkingLotAppView;
 import javafx.stage.Stage;
 
+import java.time.format.DateTimeParseException;
+
 public class ParkingLotAppController {
 
     private ParkingLotAppView ui = new ParkingLotAppView(this);
@@ -21,11 +23,16 @@ public class ParkingLotAppController {
         int parkingLotNumber = ui.getParkingLotNumber();
 
         Ticket ticket = new Ticket();
-        ticket.calculateDuration(timeIn, timeOut);
+        try {
+            ticket.calculateDuration(timeIn, timeOut);
 
-        IParkingLot parkingLot = factory.generateParkingLot(parkingLotNumber);
-        long fee = parkingLot.calculateFee(ticket);
-        ui.displayFee(fee);
+            IParkingLot parkingLot = factory.generateParkingLot(parkingLotNumber);
+            long fee = parkingLot.calculateFee(ticket);
+            ui.displayFee(fee);
+        }
+        catch (DateTimeParseException ex) {
+            ui.displayError("Invalid input format. Try again");
+        }
     }
 
 

@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -142,7 +144,12 @@ public class ParkingLotAppView {
     }
 
     public void displayFee(long fee) {
+        resultLbl.setTextFill(Color.BLACK);
         resultLbl.setText("Your total ticket fee is: " + fee);
     }
 
+    public void displayError(String message) {
+        resultLbl.setTextFill(Color.RED);
+        resultLbl.setText(message);
+    }
 }
