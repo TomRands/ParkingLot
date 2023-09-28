@@ -17,9 +17,9 @@ public class ParkingLotAppController {
     public void displayFee() {
         String timeIn = ui.getTimeIn();
         String timeOut = ui.getTimeOut();
-
         Ticket ticket = new Ticket();
-        int fee = parkingLot.calculateFee(ticket);
+        ticket.calculateDuration(timeIn, timeOut);
+        long fee = parkingLot.calculateFee(ticket);
         ui.displayFee(fee);
     }
 

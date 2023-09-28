@@ -34,7 +34,7 @@ public class ParkingLotAppView {
         VBox vBox = new VBox(10,timeInLbl, txtFieldTimeIn, timeOutLbl, txtFieldTimeOut, btnCalculateFee, resultLbl);
         vBox.setAlignment(Pos.CENTER);
         Scene scene = new Scene(vBox, 300, 300);
-        stage.setTitle("Really cool calculator");
+        stage.setTitle("Really cool parking meter");
         stage.setScene(scene);
         stage.show();
     }
@@ -70,7 +70,7 @@ public class ParkingLotAppView {
         return txtFieldTimeOut.getText();
     }
 
-    public void displayFee(int fee) {
-
+    public void displayFee(long fee) {
+        resultLbl.setText("Your total ticket fee is: " + fee);
     }
 }
