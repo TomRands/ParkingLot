@@ -4,9 +4,9 @@ import com.example.parkinglot.models.Ticket;
 import com.example.parkinglot.models.TimeSpan;
 
 public class LongStayParkingLot implements IParkingLot{
-    private final int BASE_DAILY_FEE_RATE = 20;
-    private final int BASE_7_DAY_FEE_RATE = 100;
-    private final int BASE_30_DAY_FEE_RATE = 350;
+    private final int BASE_DAILY_FEE_RATE = 18;
+    private final int BASE_OVER_5_DAY_FEE_RATE = 10;
+    private final int BASE_OVER_10_DAY_FEE_RATE = 8;
 
 
     @Override
@@ -20,13 +20,13 @@ public class LongStayParkingLot implements IParkingLot{
         }
 
         while (days > 0) {
-            if (days >= 30) {
-                fee += BASE_30_DAY_FEE_RATE;
-                days -= 30;
+            if (days >= 10) {
+                fee += BASE_OVER_10_DAY_FEE_RATE * 10;
+                days -= 10;
             }
-            else if (days >= 7) {
-                fee += BASE_7_DAY_FEE_RATE;
-                days -= 7;
+            else if (days >= 5) {
+                fee += BASE_OVER_5_DAY_FEE_RATE * 5;
+                days -= 5;
             }
             else {
                 fee += BASE_DAILY_FEE_RATE;
