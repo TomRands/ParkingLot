@@ -1,15 +1,16 @@
 package com.example.parkinglot.view;
 
 import com.example.parkinglot.controller.ParkingLotAppController;
-import com.example.parkinglot.models.Ticket;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ParkingLotAppView {
     Stage stage;
@@ -19,6 +20,10 @@ public class ParkingLotAppView {
     private Label resultLbl, timeInLbl, timeOutLbl;
     private RadioButton rdioBtn1, rdioBtn2, rdioBtn3, rdioBtn4;
     ToggleGroup group = new ToggleGroup();
+    DatePicker datePickerIn = new DatePicker();
+    DatePicker datePickerOut = new DatePicker();
+    TilePane tilePaneIn = new TilePane();
+    TilePane tilePaneOut = new TilePane();
 
     public ParkingLotAppView(ParkingLotAppController controller) {
         this.controller = controller;
@@ -31,7 +36,7 @@ public class ParkingLotAppView {
     }
 
     private void setUpWindowLayout(Stage stage) {
-        VBox vBox = new VBox(10,timeInLbl, txtFieldTimeIn, timeOutLbl, txtFieldTimeOut, btnCalculateFee, resultLbl, rdioBtn1, rdioBtn2, rdioBtn3, rdioBtn4);
+        VBox vBox = new VBox(10,timeInLbl, tilePaneIn, txtFieldTimeIn, timeOutLbl, tilePaneOut, txtFieldTimeOut, btnCalculateFee, resultLbl, rdioBtn1, rdioBtn2, rdioBtn3, rdioBtn4);
         vBox.setAlignment(Pos.CENTER);
         Scene scene = new Scene(vBox, 400, 400);
         stage.setTitle("Really cool parking meter");
@@ -43,13 +48,13 @@ public class ParkingLotAppView {
         timeInLbl = new Label("What date and time did you enter?");
         txtFieldTimeIn = new TextField();
         txtFieldTimeIn.setMaxWidth(150);
-        txtFieldTimeIn.setPromptText("yyyy-MM-dd HH:mm:ss");
+        txtFieldTimeIn.setPromptText("HH:mm:ss");
         txtFieldTimeIn.setFocusTraversable(false);
 
         timeOutLbl = new Label("What date and time are you leaving?");
         txtFieldTimeOut = new TextField();
         txtFieldTimeOut.setMaxWidth(150);
-        txtFieldTimeOut.setPromptText("yyyy-MM-dd HH:mm:ss");
+        txtFieldTimeOut.setPromptText("HH:mm:ss");
         txtFieldTimeOut.setFocusTraversable(false);
 
         rdioBtn1 = new RadioButton("Standard");
@@ -68,7 +73,47 @@ public class ParkingLotAppView {
         btnCalculateFee = new Button("Calculate fee");
         btnCalculateFee.setFocusTraversable(false);
         resultLbl = new Label("Your total ticket fee is: ");
+
+        tilePaneIn.setAlignment(Pos.CENTER);
+        datePickerIn.setPromptText("dd/MM/yyyy");
+        datePickerIn.setFocusTraversable(false);
+        formatDatePicker(datePickerIn);
+        tilePaneIn.getChildren().add(datePickerIn);
+
+        tilePaneOut.setAlignment(Pos.CENTER);
+        datePickerOut.setPromptText("dd/MM/yyyy");
+        datePickerOut.setFocusTraversable(false);
+        formatDatePicker(datePickerOut);
+        tilePaneOut.getChildren().add(datePickerOut);
     }
+
+    private void formatDatePicker(DatePicker datePicker) {
+        datePicker.setConverter(new StringConverter<LocalDate>() {
+            String pattern = "dd/MM/yyyy";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+            {
+                datePicker.setPromptText(pattern.toLowerCase());
+            }
+
+            @Override public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
+    }
+
 
     private void setUpButtonEvent() {
         btnCalculateFee.setOnAction(e-> controller.displayFee());
@@ -89,11 +134,11 @@ public class ParkingLotAppView {
     }
 
     public String getTimeIn() {
-        return txtFieldTimeIn.getText();
+        return datePickerIn.getEditor().getText() + ", " + txtFieldTimeIn.getText();
     }
 
     public String getTimeOut() {
-        return txtFieldTimeOut.getText();
+        return datePickerOut.getEditor().getText() + ", " + txtFieldTimeOut.getText();
     }
 
     public void displayFee(long fee) {
