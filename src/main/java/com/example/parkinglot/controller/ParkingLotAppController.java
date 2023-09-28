@@ -5,12 +5,11 @@ import com.example.parkinglot.models.ParkingLotFactory;
 import com.example.parkinglot.models.Ticket;
 import com.example.parkinglot.view.ParkingLotAppView;
 import javafx.stage.Stage;
-
 import java.time.format.DateTimeParseException;
 
 public class ParkingLotAppController {
 
-    private ParkingLotAppView ui = new ParkingLotAppView(this);
+    private final ParkingLotAppView ui = new ParkingLotAppView(this);
     private final ParkingLotFactory factory = new ParkingLotFactory();
 
     public void runApp(Stage stage) {

@@ -7,16 +7,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ParkingLotAppView {
-    Stage stage;
-    private ParkingLotAppController controller;
+    private final ParkingLotAppController controller;
     private TextField txtFieldTimeIn, txtFieldTimeOut;
     private Button btnCalculateFee;
     private Label resultLbl, timeInLbl, timeOutLbl;
@@ -48,16 +45,10 @@ public class ParkingLotAppView {
 
     private void createUIElements(){
         timeInLbl = new Label("What date and time did you enter?");
-        txtFieldTimeIn = new TextField();
-        txtFieldTimeIn.setMaxWidth(150);
-        txtFieldTimeIn.setPromptText("HH:mm");
-        txtFieldTimeIn.setFocusTraversable(false);
+        txtFieldTimeIn = setUpTextField();
 
         timeOutLbl = new Label("What date and time are you leaving?");
-        txtFieldTimeOut = new TextField();
-        txtFieldTimeOut.setMaxWidth(150);
-        txtFieldTimeOut.setPromptText("HH:mm");
-        txtFieldTimeOut.setFocusTraversable(false);
+        txtFieldTimeOut = setUpTextField();
 
         rdioBtn1 = new RadioButton("Standard");
         rdioBtn1.setSelected(true);
@@ -65,40 +56,46 @@ public class ParkingLotAppView {
         rdioBtn3 = new RadioButton("Long-Term");
         rdioBtn4 = new RadioButton("Premium");
 
-
         rdioBtn1.setToggleGroup(group);
         rdioBtn2.setToggleGroup(group);
         rdioBtn3.setToggleGroup(group);
         rdioBtn4.setToggleGroup(group);
 
-
         btnCalculateFee = new Button("Calculate fee");
         btnCalculateFee.setFocusTraversable(false);
         resultLbl = new Label("Your total ticket fee is: ");
 
+        setUpDatePicker(tilePaneIn, datePickerIn);
+        setUpDatePicker(tilePaneOut, datePickerOut);
+    }
+
+    private void setUpDatePicker(TilePane tilePaneIn, DatePicker datePickerIn) {
         tilePaneIn.setAlignment(Pos.CENTER);
         datePickerIn.setPromptText("dd/MM/yyyy");
         datePickerIn.setFocusTraversable(false);
         formatDatePicker(datePickerIn);
         tilePaneIn.getChildren().add(datePickerIn);
+    }
 
-        tilePaneOut.setAlignment(Pos.CENTER);
-        datePickerOut.setPromptText("dd/MM/yyyy");
-        datePickerOut.setFocusTraversable(false);
-        formatDatePicker(datePickerOut);
-        tilePaneOut.getChildren().add(datePickerOut);
+    private TextField setUpTextField() {
+        TextField textField = new TextField();
+        textField.setMaxWidth(150);
+        textField.setPromptText("HH:mm");
+        textField.setFocusTraversable(false);
+        return textField;
     }
 
     private void formatDatePicker(DatePicker datePicker) {
-        datePicker.setConverter(new StringConverter<LocalDate>() {
-            String pattern = "dd/MM/yyyy";
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        datePicker.setConverter(new StringConverter<>() {
+            final String pattern = "dd/MM/yyyy";
+            final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
             {
                 datePicker.setPromptText(pattern.toLowerCase());
             }
 
-            @Override public String toString(LocalDate date) {
+            @Override
+            public String toString(LocalDate date) {
                 if (date != null) {
                     return dateFormatter.format(date);
                 } else {
@@ -106,7 +103,8 @@ public class ParkingLotAppView {
                 }
             }
 
-            @Override public LocalDate fromString(String string) {
+            @Override
+            public LocalDate fromString(String string) {
                 if (string != null && !string.isEmpty()) {
                     return LocalDate.parse(string, dateFormatter);
                 } else {
