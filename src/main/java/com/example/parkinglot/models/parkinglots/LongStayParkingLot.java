@@ -1,4 +1,7 @@
-package com.example.parkinglot.models;
+package com.example.parkinglot.models.parkinglots;
+
+import com.example.parkinglot.models.Ticket;
+import com.example.parkinglot.models.TimeSpan;
 
 public class LongStayParkingLot implements IParkingLot{
     private final int BASE_DAILY_FEE_RATE = 20;

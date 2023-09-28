@@ -1,7 +1,6 @@
 package com.example.parkinglot.controller;
 
-import com.example.parkinglot.models.IParkingLot;
-import com.example.parkinglot.models.ParkingLot;
+import com.example.parkinglot.models.parkinglots.IParkingLot;
 import com.example.parkinglot.models.ParkingLotFactory;
 import com.example.parkinglot.models.Ticket;
 import com.example.parkinglot.view.ParkingLotAppView;
