@@ -28,7 +28,12 @@ public class ParkingLotAppController {
 
             IParkingLot parkingLot = factory.generateParkingLot(parkingLotNumber);
             long fee = parkingLot.calculateFee(ticket);
-            ui.displayFee(fee);
+            if (fee < 0) {
+                ui.displayError("Time out must be after time in.");
+            }
+            else {
+                ui.displayFee(fee);
+            }
         }
         catch (DateTimeParseException ex) {
             ui.displayError("Invalid input format. Try again");

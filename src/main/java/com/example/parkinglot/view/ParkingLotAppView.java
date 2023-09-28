@@ -50,13 +50,13 @@ public class ParkingLotAppView {
         timeInLbl = new Label("What date and time did you enter?");
         txtFieldTimeIn = new TextField();
         txtFieldTimeIn.setMaxWidth(150);
-        txtFieldTimeIn.setPromptText("HH:mm:ss");
+        txtFieldTimeIn.setPromptText("HH:mm");
         txtFieldTimeIn.setFocusTraversable(false);
 
         timeOutLbl = new Label("What date and time are you leaving?");
         txtFieldTimeOut = new TextField();
         txtFieldTimeOut.setMaxWidth(150);
-        txtFieldTimeOut.setPromptText("HH:mm:ss");
+        txtFieldTimeOut.setPromptText("HH:mm");
         txtFieldTimeOut.setFocusTraversable(false);
 
         rdioBtn1 = new RadioButton("Standard");

@@ -9,7 +9,7 @@ public class Ticket {
     public TimeSpan duration;
 
     public void calculateDuration(String stringTimeIn, String stringTimeOut) {
-        String pattern = "dd/MM/yyyy, HH:mm:ss";
+        String pattern = "dd/MM/yyyy, HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         LocalDateTime timeIn = LocalDateTime.parse(stringTimeIn,formatter);
         LocalDateTime timeOut = LocalDateTime.parse(stringTimeOut,formatter);
