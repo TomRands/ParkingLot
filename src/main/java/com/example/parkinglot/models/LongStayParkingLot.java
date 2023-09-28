@@ -1,11 +1,8 @@
 package com.example.parkinglot.models;
 
 public class LongStayParkingLot implements IParkingLot{
-
     private final int BASE_DAILY_FEE_RATE = 20;
-
     private final int BASE_7_DAY_FEE_RATE = 100;
-
     private final int BASE_30_DAY_FEE_RATE = 350;
 
 
@@ -33,7 +30,6 @@ public class LongStayParkingLot implements IParkingLot{
                 days--;
             }
         }
-
         return fee;
     }
 }
